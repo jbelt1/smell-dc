@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Smell DC</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_home">Report</string>
+    <string name="title_dashboard">Map</string>
+    <string name="title_notifications">Profile</string>
 
     <string name="feedbacktype1">Praise</string>
     <string name="feedbacktype2">Gripe</string>
