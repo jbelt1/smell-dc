@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/prompt1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Rate the quality of your air from 1-5" />
+
+
+    <TextView
+        android:id="@+id/prompt2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select type of odor" />
+
+    <Spinner
+        android:id="@+id/SpinnerFeedbackType"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:entries="@array/feedbacktypelist">
+    </Spinner>
+
+    <TextView
+        android:id="@+id/prompt3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Symptoms" />
+
+    <EditText
+        android:id="@+id/EditTextFeedbackBody"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:lines="5"
+        android:layout_width="fill_parent">
+    </EditText>
+</LinearLayout>
