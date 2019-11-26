@@ -6,10 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.EditText
-import android.widget.SeekBar
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.smelldc.DashboardActivity
@@ -66,7 +63,7 @@ class ReportFragment : Fragment() {
 
 
                 // save report data to db and update global data structure
-                Log.i("SMELL-DC", "Latitude: " + location?.latitude)
+                Toast.makeText(activity.applicationContext, "Report submitted!", Toast.LENGTH_LONG).show()
             }
         }
 
