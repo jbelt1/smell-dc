@@ -12,8 +12,6 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.smelldc.DashboardActivity
 import com.example.smelldc.R
 import com.example.smelldc.ui.map.Report
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.GeoPoint
 
