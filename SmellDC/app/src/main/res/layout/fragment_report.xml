@@ -26,15 +26,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="5sp"
-        android:text="Select type of odor"
+        android:text="Describe the smell"
         android:textAlignment="center"
         android:textSize="24sp" />
 
-    <Spinner
-        android:id="@+id/spinner"
+    <EditText
+        android:id="@+id/description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:spinnerMode="dropdown" />
+        android:ems="10"
+        android:hint="e.g. smokey"
+        android:inputType="textShortMessage" >
+    </EditText>
 
     <TextView
         android:id="@+id/prompt3"

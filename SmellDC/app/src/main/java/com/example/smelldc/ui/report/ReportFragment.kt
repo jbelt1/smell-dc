@@ -23,6 +23,7 @@ class ReportFragment : Fragment() {
     private var mAirQuality: SeekBar? = null
     private var mSymptoms: EditText? = null
     private var mActivity: EditText? = null
+    private var mDescription: EditText? = null
     private var mSendToHealthDpt: CheckBox? = null
     private var mSubmitBtn: Button? = null
 
@@ -39,25 +40,27 @@ class ReportFragment : Fragment() {
         mAirQuality = root.findViewById<SeekBar>(R.id.seekBar) as SeekBar
         mSymptoms = root.findViewById<EditText>(R.id.symptoms) as EditText
         mActivity = root.findViewById<EditText>(R.id.activity) as EditText
+        mDescription = root.findViewById<EditText>(R.id.description) as EditText
+
         mSendToHealthDpt = root.findViewById<CheckBox>(R.id.checkBox) as CheckBox
 
         mSubmitBtn?.setOnClickListener {
             val activity = activity as DashboardActivity
             activity.getCurrentLocation()?.addOnSuccessListener { location : Location? ->
-                // Got last known location. In some rare situations this can be null.
-                val geoPoint = GeoPoint(location!!.latitude, location!!.longitude)
+            // Got last known location. In some rare situations this can be null.
+            val geoPoint = GeoPoint(location!!.latitude, location!!.longitude)
 
-                val report = Report(mActivity?.text.toString(), geoPoint, "smoke", mAirQuality?.progress,
-                    mSymptoms?.text.toString(), mSendToHealthDpt?.isChecked)
+            val report = Report(mActivity?.text.toString(), geoPoint, mDescription?.text.toString(), mAirQuality?.progress,
+                mSymptoms?.text.toString(), mSendToHealthDpt?.isChecked)
 
-                db.collection("reports")
-                    .add(report)
-                    .addOnSuccessListener { documentReference ->
-                        Log.i("SMELL-DC", "DocumentSnapshot added with ID: ${documentReference.id}")
-                    }
-                    .addOnFailureListener { e ->
-                        Log.i("SMELL-DC", "Error adding document", e)
-                    }
+            db.collection("reports")
+                .add(report)
+                .addOnSuccessListener { documentReference ->
+                    Log.i("SMELL-DC", "DocumentSnapshot added with ID: ${documentReference.id}")
+                }
+                .addOnFailureListener { e ->
+                    Log.i("SMELL-DC", "Error adding document", e)
+                }
 
 
                 // save report data to db and update global data structure
