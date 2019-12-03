@@ -5,14 +5,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
 import com.example.smelldc.R
 import com.google.android.gms.maps.*
-import com.google.android.gms.maps.model.CameraPosition
+import com.google.android.gms.maps.GoogleMap.OnMapClickListener
+import com.google.android.gms.maps.model.*
 
 class MapFragment : Fragment(), OnMapReadyCallback {
 
@@ -32,31 +32,51 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         mView = inflater.inflate(R.layout.fragment_map, container, false)
 
         Log.i("report", "in MapFragment")
-        mapViewModel.getReports().observe(this, Observer<List<Report>>{reports ->
-            Log.i("report", "current list of reports" + reports.toString())
-        })
         return mView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        mMapView = mView.findViewById(R.id.map) as MapView
-        if (mMapView != null) {
-            mMapView.onCreate(null)
-            mMapView.onResume()
-            mMapView.getMapAsync(this)
-        }
+        val myLayout = mView.findViewById(R.id.mapcontainer) as LinearLayout
+        val options = GoogleMapOptions()
+        options.mapType(GoogleMap.MAP_TYPE_NORMAL).liteMode(true)
+        val dc = LatLng(38.9072, -77.0369)
+        options.camera(CameraPosition.fromLatLngZoom(dc,12.2f))
+        mMapView = MapView(context, options)
+        mMapView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.MATCH_PARENT)
+        myLayout.addView(mMapView)
+        mMapView.onCreate(null)
+        mMapView.onResume()
+        mMapView.getMapAsync(this)
     }
 
     override fun onMapReady(map: GoogleMap) {
-        MapsInitializer.initialize(context)
+        mapViewModel.getReports().observe(this, Observer<List<Report>>{reports ->
+            MapsInitializer.initialize(context)
+            mGoogleMap = map
+            mGoogleMap.setOnMapClickListener { null
+            }
+            mGoogleMap.setInfoWindowAdapter(CustomInfoWindowAdapter(context))
+            for (report in reports) {
+                Log.i("report", "current report " + report)
+                val color = when(report.quality) {
+                    1 -> BitmapDescriptorFactory.HUE_RED
+                    2 -> BitmapDescriptorFactory.HUE_ORANGE
+                    3 -> BitmapDescriptorFactory.HUE_YELLOW
+                    4 -> BitmapDescriptorFactory.HUE_GREEN
+                    5 -> BitmapDescriptorFactory.HUE_BLUE
+                    else -> BitmapDescriptorFactory.HUE_CYAN
+                }
 
-        mGoogleMap = map
+                mGoogleMap.addMarker(MarkerOptions()
+                    .position(LatLng(report.location.latitude,
+                        report.location.longitude))
+                    .title(report.odor)
+                    .snippet("Symptoms: ${report.symptoms} \n Activity: ${report.activity} \n Air Quality: ${report.quality}")
+                    .icon(BitmapDescriptorFactory.defaultMarker(color)))
+            }
+        })
 
-        // Add a marker in Sydney and move the camera
-        val sydney = LatLng(-34.0, 151.0)
-        mGoogleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
     }
 }
