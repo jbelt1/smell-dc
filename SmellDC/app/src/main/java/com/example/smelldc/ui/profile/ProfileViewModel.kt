@@ -14,7 +14,7 @@ class ProfileViewModel : ViewModel() {
     private val db = FirebaseFirestore.getInstance()
     private val user: MutableLiveData<User> by lazy {
         MutableLiveData<User>().also {
-            loadUsers()
+            loadUser()
         }
     }
 
@@ -22,17 +22,13 @@ class ProfileViewModel : ViewModel() {
         return user
     }
 
-    private fun loadUsers() {
+    private fun loadUser() {
         val currentFirebaseUser = FirebaseAuth.getInstance().currentUser
-        db.collection("reports")
+        db.collection("users")
+            .document(currentFirebaseUser!!.email.toString())
             .get()
             .addOnSuccessListener { result ->
-                for (document in result) {
-                    var currUser = document.toObject(User::class.java)
-                    if (currUser == currentFirebaseUser?.uid) {
-                      user.value = currUser
-                    }
-                }
+                user.value = result.toObject(User::class.java)
             }
             .addOnFailureListener { exception ->
                 Log.w("Smell-DC", "Error getting users.", exception)
