@@ -67,10 +67,18 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         profileViewModel.getUser().observe(this, Observer<User>{user ->
-            mFirstName!!.setText(user.firstName)
-            mLastName!!.setText(user.lastName)
-            mAge!!.setText(user.age.toString())
-            progress!!.visibility = View.GONE
+            if (user != null) {
+                mFirstName!!.setText(user.firstName)
+                mLastName!!.setText(user.lastName)
+                mAge!!.setText(user.age.toString())
+                progress!!.visibility = View.GONE
+            }
+            else {
+                mFirstName!!.setText("N/A")
+                mLastName!!.setText("N/A")
+                mAge!!.setText("0")
+                progress!!.visibility = View.GONE
+            }
         })
     }
 }
