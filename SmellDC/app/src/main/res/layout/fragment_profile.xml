@@ -1,20 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
- 
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <TextView
-        android:id="@+id/text_notifications"
+        android:id="@+id/profileTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:paddingTop="5sp"
+        android:paddingBottom="30sp"
+        android:text="User Information"
         android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:textSize="44sp" />
+
+    <TextView
+        android:id="@+id/firstNamePrompt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="5sp"
+        android:text="First Name"
+        android:textAlignment="viewStart"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/firstName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textShortMessage"></EditText>
+
+    <TextView
+        android:id="@+id/lastNamePrompt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="5sp"
+        android:text="Last Name"
+        android:textAlignment="viewStart"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/lastName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textShortMessage"></EditText>
+
+    <TextView
+        android:id="@+id/agePrompt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="5sp"
+        android:text="Age"
+        android:textAlignment="viewStart"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/age"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textShortMessage"></EditText>
+
+    <Button
+        android:id="@+id/submitProfileBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Update Profile" />
+
+</LinearLayout>
