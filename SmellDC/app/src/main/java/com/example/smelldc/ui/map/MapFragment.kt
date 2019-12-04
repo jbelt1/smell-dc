@@ -61,11 +61,11 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             for (report in reports) {
                 Log.i("report", "current report " + report)
                 val color = when(report.quality) {
-                    1 -> BitmapDescriptorFactory.HUE_RED
-                    2 -> BitmapDescriptorFactory.HUE_ORANGE
-                    3 -> BitmapDescriptorFactory.HUE_YELLOW
-                    4 -> BitmapDescriptorFactory.HUE_GREEN
-                    5 -> BitmapDescriptorFactory.HUE_BLUE
+                    0 -> BitmapDescriptorFactory.HUE_RED
+                    1 -> BitmapDescriptorFactory.HUE_ORANGE
+                    2 -> BitmapDescriptorFactory.HUE_YELLOW
+                    3 -> BitmapDescriptorFactory.HUE_GREEN
+                    4 -> BitmapDescriptorFactory.HUE_BLUE
                     else -> BitmapDescriptorFactory.HUE_CYAN
                 }
 
@@ -73,7 +73,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                     .position(LatLng(report.location.latitude,
                         report.location.longitude))
                     .title(report.odor)
-                    .snippet("Symptoms: ${report.symptoms} \n Activity: ${report.activity} \n Air Quality: ${report.quality}")
+                    .snippet("Symptoms: ${report.symptoms} \nActivity: ${report.activity} \nAir Quality: ${report.quality}")
                     .icon(BitmapDescriptorFactory.defaultMarker(color)))
             }
         })
